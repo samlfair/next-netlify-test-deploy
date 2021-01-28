@@ -32,12 +32,12 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths() {
-  const documents = await queryRepeatableDocuments((doc) => doc.uid === 'home')
-  return {
-    paths: documents.map((doc) => `/`),
-    fallback: true
-  }
-}
+// export async function getStaticPaths() {
+//   const documents = await queryRepeatableDocuments((doc) => doc.uid === 'home')
+//   return {
+//     paths: documents.map((doc) => `/`),
+//     fallback: true
+//   }
+// }
 
 export default Home
