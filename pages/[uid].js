@@ -6,7 +6,7 @@ import { queryRepeatableDocuments } from './../utils/queries'
 const apiEndpoint = 'https://sam-onboarding-nuxt-blog.cdn.prismic.io/api/v2'
 const Client = Prismic.client(apiEndpoint)
 
-function Home({ post }) {
+function Page({ post }) {
   return (
     <div>
       <p>Test Deploy</p>
@@ -23,7 +23,7 @@ export async function getStaticProps({
 }) {
   const { ref } = previewData
   const post =
-    (await Client.getByUID('page', 'home', ref ? { ref } : null)) || {}
+    (await Client.getByUID('page', params.uid, ref ? { ref } : null)) || {}
   return {
     props: {
       preview,
@@ -33,11 +33,11 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  const documents = await queryRepeatableDocuments((doc) => doc.uid === 'home')
+  const documents = await queryRepeatableDocuments((doc) => doc.type === 'page')
   return {
-    paths: documents.map((doc) => `/`),
+    paths: documents.map((doc) => `/${doc.uid}`),
     fallback: true
   }
 }
 
-export default Home
+export default Page
